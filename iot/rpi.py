@@ -10,7 +10,7 @@ def readSensors():
     try:
         pin = os.environ["GPIO"]
     except:
-        pin = 2
+        pin = 4
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, pin)
     sensors = {
         "temperature": temperature,
