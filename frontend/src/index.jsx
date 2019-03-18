@@ -11,19 +11,19 @@ const baseURL = process.env.ENDPOINT;
 
 const getGreetingFromBackend = async () => {
   try {
-    const url = `${baseURL}/api/sensors`
-    console.log("Getting sensors from "+url)
+    const url = `${baseURL}/api/greeting`
+    console.log("Getting greeting from "+url)
     const response = await fetch(url);
     return response.json()
   } catch (error) {
     console.error(error);
   }
-  return { sensors :"Could not get sensors from backend"};
+  return { greeting :"Could not get greeting from backend"};
 };
 
 
 const BackendGreeting = (props) => (
-  <div><p>Backend says: {props.sensors}</p></div>
+  <div><p>Backend says: {props.greeting}</p></div>
 );
 
 
@@ -32,19 +32,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sensors: "",
+      greeting: "",
     };
   }
 
   async componentWillMount() {
     const response = await getGreetingFromBackend();
-    this.setState({sensors: response.sensors});
+    this.setState({greeting: response.greeting});
   }
 
   render() {
 
     return (
-      <BackendGreeting sensors={this.state.sensors} />
+      <BackendGreeting greeting={this.state.greeting} />
     );
   }
 }
