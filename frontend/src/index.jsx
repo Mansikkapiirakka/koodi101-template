@@ -11,7 +11,7 @@ const baseURL = process.env.ENDPOINT;
 
 const getGreetingFromBackend = async () => {
   try {
-    const url = `${baseURL}/api/greeting`
+    const url = `${baseURL}/api/sensors`
     console.log("Getting greeting from "+url)
     const response = await fetch(url);
     return response.json()
