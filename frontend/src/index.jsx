@@ -12,18 +12,18 @@ const baseURL = process.env.ENDPOINT;
 const getGreetingFromBackend = async () => {
   try {
     const url = `${baseURL}/api/sensors`
-    console.log("Getting greeting from "+url)
+    console.log("Getting sensor from "+url)
     const response = await fetch(url);
     return response.json()
   } catch (error) {
     console.error(error);
   }
-  return { greeting :"Could not get greeting from backend"};
+  return { sensor :"Could not get sensor from backend"};
 };
 
 
 const BackendGreeting = (props) => (
-  <div><p>Backend says: {props.greeting}</p></div>
+  <div><p>Backend says: {props.sensor[12].temperature}</p></div>
 );
 
 
@@ -32,19 +32,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      greeting: "",
+      sensor: [],
     };
   }
 
   async componentWillMount() {
     const response = await getGreetingFromBackend();
-    this.setState({greeting: response.greeting});
+    console.log(response.results);
+    this.setState({sensor: response.results});
   }
 
   render() {
-
+    console.log(this.state.sensor);
     return (
-      <BackendGreeting greeting={this.state.greeting} />
+      <table>
+        <tr>
+          <th>Aikaleima</th>
+          <th>Lämpötila</th>
+          <th>Kosteus</th>
+        </tr>
+        {this.state.sensor.map(sensorPoint => 
+          <tr  key={sensorPoint.id}>
+          <td>
+            {sensorPoint.temperature}
+          </td>
+        </tr>)}
+      </table>
     );
   }
 }
