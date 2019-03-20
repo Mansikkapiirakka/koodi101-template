@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import './assets/stylesheets/style.css'
+import { LineChart, Line } from 'recharts';
 
 const baseURL = process.env.ENDPOINT;
 
@@ -44,20 +45,25 @@ class App extends Component {
 
   render() {
     console.log(this.state.sensor);
+    const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400},];
     return (
+      <div>
       <table>
         <tr>
           <th>Aikaleima</th>
           <th>Lämpötila</th>
           <th>Kosteus</th>
         </tr>
-        {this.state.sensor.map(sensorPoint => 
-          <tr  key={sensorPoint.id}>
-          <td>
-            {sensorPoint.temperature}
-          </td>
+        {this.state.sensor.map(sensorPoint => <tr  key={sensorPoint.id}>
+          <td>{sensorPoint.timestamp}</td>
+          <td>{sensorPoint.temperature}</td>
+          <td>{sensorPoint.humidity}</td>
         </tr>)}
       </table>
+      <LineChart width={400} height={400} data={data}>
+      <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+    </LineChart>
+    </div>
     );
   }
 }
